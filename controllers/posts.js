@@ -1,5 +1,6 @@
 const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
+const User = require('../models/User')
 
 module.exports = {
   getProfile: async (req, res) => { 
@@ -23,6 +24,19 @@ module.exports = {
       console.log(err);
     }
   },
+  getBookmarks: async (req, res) => { 
+    try {
+      const posts = []
+      for (let i = 0; i < req.user.bookmarks.length; i++) {
+        const post = await Post.findById(req.user.bookmarks[i])
+        posts.push(post)
+      }
+      console.log(posts)
+      res.render('bookmark.ejs', {post: posts,})
+    } catch (err) {
+      console.log(err);
+    }
+  },
   getPost: async (req, res) => {
     try {
       //id parameter comes from the post routes
@@ -42,10 +56,11 @@ module.exports = {
 
       //media is stored on cloudainary - the above request responds with url to media and the media id that you will need when deleting content 
       await Post.create({
-        title: req.body.title,
+        name: req.body.name,
         image: result.secure_url,
         cloudinaryId: result.public_id,
-        caption: req.body.caption,
+        experience: req.body.experience,
+        location: req.body.location,
         likes: 0,
         user: req.user.id,
       });
@@ -64,6 +79,19 @@ module.exports = {
         }
       );
       console.log("Likes +1");
+      res.redirect(`/post/${req.params.id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  bookmarkPost: async (req, res) => {
+    try {
+      // const user = await User.find({ _id: req.user.id })
+      await User.findOneAndUpdate(
+        {_id: req.user.id},
+        {$push: {bookmarks: req.params.id}}
+      )
+      console.log(req.user);
       res.redirect(`/post/${req.params.id}`);
     } catch (err) {
       console.log(err);
