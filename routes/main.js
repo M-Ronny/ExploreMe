@@ -10,6 +10,7 @@ const posts = require("../controllers/posts");
 router.get("/", homeController.getIndex);
 router.get("/profile", ensureAuth, postsController.getProfile);
 router.get('/feed', ensureAuth, postsController.getFeed)
+router.get('/bookmarks', ensureAuth, postsController.getBookmarks)
 
 //Routes for user login/signup
 router.get("/login", authController.getLogin);
