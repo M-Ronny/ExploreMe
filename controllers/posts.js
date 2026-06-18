@@ -97,6 +97,19 @@ module.exports = {
       console.log(err);
     }
   },
+  removeBookmark: async (req, res) => {
+    try {
+      // const user = await User.find({ _id: req.user.id })
+      await User.findOneAndUpdate(
+        {_id: req.user.id},
+        {$pull: {bookmarks: req.params.id}}
+      )
+      console.log(req.user);
+      res.redirect(`/post/${req.params.id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  },
   deletePost: async (req, res) => {
     try {
       // Find post by id
