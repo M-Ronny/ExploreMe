@@ -17,6 +17,8 @@ router.put("/likePost/:id", postsController.likePost);
 
 router.put("/bookmarkPost/:id", postsController.bookmarkPost);
 
+router.put("/removeBookmark/:id", postsController.removeBookmark);
+
 //Enables user to delete post. In controller, uses POST model to delete post from MongoDB collection
 router.delete("/deletePost/:id", postsController.deletePost);
 
