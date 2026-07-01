@@ -1,0 +1,71 @@
+/* PROFILE */
+.user {
+    height: 75px;
+    margin-top: 1%;
+    padding: 0 3%;
+}
+
+.profile {
+    display: flex;
+    padding: 0 3%;
+}
+
+.createPost {
+    width: 30%;
+}
+
+.posts {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.card {
+    margin-bottom: 5%;
+}
+
+/* FEED */
+.allPosts {
+    padding: 0 10%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+}
+
+.navbar {
+    margin-bottom: 2%;
+}
+
+/* POST */
+.post {
+    padding: 0 15%;
+}
+
+.postImg {
+    margin: 0 15%;
+    width: 70%;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 15%;
+    margin-bottom: 10px;
+}
+
+.location {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.experience {
+    margin: 0 15%;
+    margin-bottom: 5%;
+}
+
+.name {
+    margin-bottom: 3px;
+}
