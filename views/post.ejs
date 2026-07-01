@@ -1,5 +1,28 @@
 <%- include('partials/header') -%>
-<div class="container">
+<div class="navbar bg-base-100 shadow-sm">
+  <div class="navbar-start">
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /> </svg>
+      </div>
+      <ul
+        tabindex="-1"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+        <li><a href="/feed">Feed</a></li>
+        <li><a href="/bookmarks">Bookmarks</a></li>
+        <li><a href="/profile">Profile</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="navbar-center">
+    <a class="btn btn-ghost text-xl">SpotCheck</a>
+  </div>
+  <div class="navbar-end">
+    <a href="/logout" role="button" class="btn">Logout</a>
+  </div>
+</div>
+
+<!-- <div class="container">
   <div class="row justify-content-center mt-5">
     <div class="col-6">
       <h2><%= post.name %></h2>
@@ -50,6 +73,52 @@
       <a class="btn btn-primary" href="/feed">Return to Feed</a>
     </div>
   </div>
-</div>
+</div> -->
+<section class="post">
+  <img class="postImg" src="<%= post.image%>" alt="post" />
+  <div class="buttons">
+    <form
+      class="col-1"
+      action="/post/likePost/<%= post.id %>?_method=PUT"
+      method="POST"
+    >
+      <button class="btn btn-square fa fa-heart" type="submit"></button>
+      <h3 class="col-3">Likes: <%= post.likes %></h3>
+    </form>
+    <% if (user.bookmarks.includes(post.id)) { %>
+      <form
+        class="col-1"
+        action="/post/removeBookmark/<%= post.id %>?_method=PUT"
+        method="POST"
+      >
+        <button class="btn btn-square fa fa-bookmark" type="submit"></button>
+      </form>
+    <%} else { %>
+      <form
+        class="col-1"
+        action="/post/bookmarkPost/<%= post.id %>?_method=PUT"
+        method="POST"
+      >
+        <button class="btn btn-square fa fa-bookmark" type="submit"></button>
+      </form>
+    <%}%>
+    <%if(post.user == user.id){ %>
+      <form
+        action="/post/deletePost/<%= post.id %>?_method=DELETE"
+        method="POST"
+        class="col-3"
+      >
+        <button class="btn btn-square fa fa-trash" type="submit"></button>
+      </form>
+    <%}%>
+  </div>
+  <!-- <div class="card-body"> -->
+    <div class="experience">
+      <h2 class="name card-title"><%= post.name %></h2>
+      <h3 class="location">Location: <%= post.location %></h3>
+      <p><%= post.experience %></p>
+    </div>
+  <!-- </div> -->
+</section>
 
 <%- include('partials/footer') -%>

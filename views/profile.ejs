@@ -1,5 +1,27 @@
 <%- include('partials/header') -%>
-<div class="container">
+<div class="navbar bg-base-100 shadow-sm">
+  <div class="navbar-start">
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /> </svg>
+      </div>
+      <ul
+        tabindex="-1"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+        <li><a href="/feed">Feed</a></li>
+        <li><a href="/bookmarks">Bookmarks</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="navbar-center">
+    <a class="btn btn-ghost text-xl">SpotCheck</a>
+  </div>
+  <div class="navbar-end">
+    <a href="/logout" role="button" class="btn">Logout</a>
+  </div>
+</div>
+
+<!-- <div class="container">
   <div class="row mt-5">
       <div class="col-6">
           <div>
@@ -50,5 +72,51 @@
       </div>  
     </div>
   </div>
-</div>
+</div> -->
+<section class="user">
+  <p><strong>User Name</strong>: <%= user.userName %></p>
+  <p><strong>Email</strong>: <%= user.email %></p>
+</section>
+
+<section class="profile">
+  <div class="createPost">
+    <form action="/post/createPost" enctype="multipart/form-data" method="POST">
+      <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+        <legend class="fieldset-legend">Tell us about your experience</legend>
+
+        <label for="name" class="label">Name of the Place</label>
+        <input type="text" class="input" id="name" name="name" placeholder="Name" />
+
+        <label for="location" class="label">Location</label>
+        <input type="text" class="input" id="location" name="location" placeholder="Location" />
+
+        <label for="experience" class="label">Your Experience</label>
+        <textarea class="textarea" id="experience" name="experience" placeholder="Your Experience"></textarea>
+
+        <label for="imgUpload" class="label">Image</label>
+        <input type="file" class="file-input" id="imageUpload" name="file" multiple/>
+
+        <button type="submit" class="btn btn-neutral mt-4" value="Upload">Submit</button>
+      </fieldset>
+    </form>
+  </div>  
+
+  <div class="posts">
+    <% for(var i=0; i<posts.length; i++) {%>
+      <div class="card bg-base-100 w-96 shadow-sm">
+        <a href="/post/<%= posts[i]._id%>">
+        <figure>
+          <img
+            src="<%= posts[i].image%>"
+            alt="post" />
+        </figure>
+        <div class="card-body">
+          <h2 class="card-title"><%= posts[i].name%></h2>
+        </div>
+        </a> 
+      </div>
+    <% } %>
+  </div>
+</section>
+
 <%- include('partials/footer') -%>
